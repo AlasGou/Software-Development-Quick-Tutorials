@@ -4,7 +4,7 @@ A list of tutorials designed to get the principles across as quick possible, but
 I generally write software for large publicly accesible e-commerce sites, and these software tutorials reflect that.
 
 # Software Development
-* Basics
+* [Basics](Basics/Introduction.md)Basics
   * SOLID
   * Inversion of Control
 * Test-driven development(TDD) & Behavior-driven development(BDD)
