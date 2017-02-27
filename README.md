@@ -5,17 +5,12 @@ I generally write software for large publicly accesible e-commerce sites, and th
 
 # Software Development
 * Basics
-  * Introduction
   * SOLID
   * Inversion of Control
 * Domain-Driven-Design
-  * Introduction
 * Onion Architecture
-  * Introduction
 * CQRS
-  * Introduction
 * Event Sourcing
-  * Introduction
   
 ## Build & Deployment
 
