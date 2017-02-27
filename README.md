@@ -10,3 +10,8 @@ I generally write software for large publicly accesible e-commerce sites, and th
   * Introduction
 * Onion Architecture
   * Introduction
+* CQRS
+  * Introduction.md
+* Event Sourcing
+  * Introduction.md
+ 
