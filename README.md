@@ -7,7 +7,7 @@ I generally write software for large publicly accesible e-commerce sites, and th
 * Basics
   * Introduction
   * SOLID
-  * Inversion Of Control
+  * Inversion of Control
 * Domain-Driven-Design
   * Introduction
 * Onion Architecture
