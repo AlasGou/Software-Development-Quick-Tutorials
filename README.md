@@ -10,6 +10,7 @@ I generally write software for large publicly accesible e-commerce sites, and th
 * Test-driven development(TDD) & Behavior-driven development(BDD)
 * Domain-Driven-Design(DDD)
 * Onion Architecture
+* Microservices
 * CQRS
 * Event Sourcing
   
