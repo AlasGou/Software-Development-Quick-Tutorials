@@ -8,7 +8,7 @@ I generally write software for large publicly accesible e-commerce sites, and th
   * SOLID
   * Inversion of Control
 * Test-driven development(TDD) & Behavior-driven development(BDD)
-* Domain-Driven-Design
+* Domain-Driven-Design(DDD)
 * Onion Architecture
 * CQRS
 * Event Sourcing
