@@ -12,13 +12,39 @@ point where they are otherwise the same. You can learn more about Onion Architec
 
 ## Ubiquitous Language
 
+When discussing the domain software developers, and domain experts should share a language 
+in order to understand each other. The software model should also be implemented
+using ubiquitous language as much as possible, to the point where the domain expert
+should be able to understand the code.
+
+It is useful to document the language so anyone can lookup it up. Using 
+a internal wiki is often the best way of implementing this. 
+
 ## Entity
 
 An entity is an object that is unique and has an identity. A purchase order is an entity since it has a unique id.
 
+```csharp
+public class PurchaseOrder
+{
+    public PurchaseOrderId PurchaseOrderId { get; set; }
+
+    //Various properties and methods
+}
+```
+
+
 ## Value Object
 
 A value object is an object that is defined by its attributes rather than having a unique identity. A money object would be a value object.
+
+```csharp
+public class Money
+{
+    public Decimal Value { get; set;}
+    public CurrencyType Currency  {get; set;}
+}
+```
 
 ## Aggregate
 
