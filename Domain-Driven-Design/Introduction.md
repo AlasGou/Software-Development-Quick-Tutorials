@@ -3,11 +3,11 @@
 Domain Driven Design (DDD) is a technique for building software with complex business domains. The core idea is to 
 put the focus on building a shared software model that both software developers, and domain experts 
 can understand. The software model should be only concerned with modelling the business issues in the
-domain and include no technical issues like database persistance.
+domain and include no technical issues like database persistance or handling requests.
 
-When combined with onion architecture/ports and adapters/hexagonal architecture it can be clean way of seperating
-the business issues from the technical implementation. On the .NET stack it is also often combined with Microservices, CQRS, and 
-Event sourcing to develop large scalable systems.
+When combined with onion architecture it can be a clean way of seperating the business issues from the 
+technical issues. Onion architecture is similar to both Ports & Adapters and Hexagonal architecture to the 
+point where they are otherwise the same.
 
 ## Entities
 
