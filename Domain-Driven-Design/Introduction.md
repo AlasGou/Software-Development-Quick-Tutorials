@@ -9,6 +9,8 @@ When combined with onion architecture it can be a clean way of seperating the bu
 technical issues. Onion architecture is similar to both Ports & Adapters and Hexagonal architecture to the 
 point where they are otherwise the same.
 
+## Ubiquitous Language
+
 ## Entities
 
 An entity is an object that is unique and has an identity. A purchase order is an entity since it has a unique id.
