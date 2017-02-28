@@ -19,7 +19,7 @@ A value object is an object that is defined by its attributes rather than having
 
 ## Aggregate
 
-An aggregate are a collection objects that can act as a single unit. A purchase order aggregate may include a Purchase Order Entity, Address, a person, and line items. 
+An aggregate are a collection of objects that can act as a single unit. A purchase order aggregate may include a Purchase Order Entity, Address, a person, and line items. 
 The aggeragates are where the *invariants*(a fancy term DDD proponents like to use) or business rules are enforced. For our purchase order example, we may say that a 
 purchase order can not exist without at least 1 line item, and that a purchase order over a certain amount can not be automatically approved.
 
