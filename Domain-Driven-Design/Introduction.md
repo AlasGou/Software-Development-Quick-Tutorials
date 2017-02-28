@@ -5,9 +5,10 @@ to put the focus on building a shared software model that both software develope
 can understand. The software model should be only concerned with modelling the business issues in the
 domain and include no technical issues like database persistance or handling requests.
 
-When combined with onion architecture it can be a clean way of seperating the business issues from the 
-technical issues. Onion architecture is similar to both Ports & Adapters and Hexagonal architecture to the 
-point where they are otherwise the same.
+When combined with Onion Architecture it can be a clean way of seperating the business issues from the 
+technical issues. Onion Architecture is similar to both Ports & Adapters and Hexagonal architecture to the 
+point where they are otherwise the same. You can learn more about Onion Architecture at the following
+[article](../Onion-Architecture).
 
 ## Ubiquitous Language
 
