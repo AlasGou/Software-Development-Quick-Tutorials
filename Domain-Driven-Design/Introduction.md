@@ -1,6 +1,6 @@
 # Domain Driven Design
 
-Domain Driven Design is a technique for building software with complex business domains. The core idea is to 
+Domain Driven Design (DDD) is a technique for building software with complex business domains. The core idea is to 
 put the projects focus on building a shared software model that both software developers, and domain experts 
 can understand. The software model is should be only concerned with modelling the business issues in the
 domain and include no technical issues like database persistance.
