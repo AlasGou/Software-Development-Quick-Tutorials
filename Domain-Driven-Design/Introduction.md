@@ -36,7 +36,7 @@ The aggregate root is the entity at the top of an aggregate, it directly referen
 aggeragate, and all actions on a aggeragate are performed via the aggergate root so that the invariants can be enforced. Any other objects outside of an aggeragate are not allowed
 to directly reference any object inside the aggregate except for the aggeragate root.
 
-## RepRepositoryository
+## Repository
 
 A repository is the method of retriving aggregate roots, it should not be used to retrive any other type of object in DDD. The repository interfaces are normally considered a part of the domain because they can contain business issues such
 as "retrive all unapproved purchase orders". The repository implementations are considered outside of the domain, and usally placed within a Infrastructure project and are injected
