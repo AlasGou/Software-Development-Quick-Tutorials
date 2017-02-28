@@ -68,5 +68,5 @@ the Scrum development framework.
 
 ## Further Reading
 
-Domain Driven Design is a complicated subject and I can explain the basics of modelling with DDD within such a small article. For further information please
+Domain Driven Design is a complicated subject and I can only explain the basics of modelling with DDD within such a small article. For further information please
 see the following.
