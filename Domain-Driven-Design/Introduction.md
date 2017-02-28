@@ -6,7 +6,7 @@ can understand. The software model should be only concerned with modelling the b
 domain and include no technical issues like database persistance or handling requests.
 
 When combined with Onion Architecture it can be a clean way of seperating the business issues from the 
-technical issues. Onion Architecture is similar to both Ports & Adapters and Hexagonal architecture to the 
+technical issues. Onion Architecture is similar to both Ports & Adapters and Hexagonal Architecture to the 
 point where they are otherwise the same. You can learn more about Onion Architecture at the following
 [article](../Onion-Architecture).
 
@@ -39,8 +39,8 @@ to directly reference any object inside the aggregate except for the aggeragate 
 
 ## Repository
 
-A repository is the method of retriving aggregate roots, it should not be used to retrive any other type of object in DDD. The repository interfaces are normally considered a part of the domain because they can contain business issues such
-as "retrive all unapproved purchase orders". The repository implementations are considered outside of the domain, and usally placed within a Infrastructure project and are injected
+A repository is the method of retriving aggregate roots, it should not be used to retrive any other type of object in DDD. The repository interfaces are normally considered a part of the
+ domain because they can contain business issues such as "retrive all unapproved purchase orders". The repository implementations are considered outside of the domain, and usally placed within a Infrastructure project and are injected
 in at runtime. This is an example dependency inversion.
 
 ## Domain Events
