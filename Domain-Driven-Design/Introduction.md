@@ -57,7 +57,6 @@ When using DDD in combination with microservices, the bounded context is a good 
 
 ## Context Map
 
-
 ## DDD Antipatterns
 
 ## Tutorial
