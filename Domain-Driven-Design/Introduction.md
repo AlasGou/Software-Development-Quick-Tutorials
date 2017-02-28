@@ -84,6 +84,10 @@ When using DDD in combination with microservices, the bounded context is a good 
 
 ## Context Map
 
+## Domain Services
+
+## Application Services
+
 ## DDD Anti-Patterns
 
 ## Tutorial
