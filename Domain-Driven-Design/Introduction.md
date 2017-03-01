@@ -116,6 +116,29 @@ applied. For example if the value of a line item changes, and the purchase order
 
 An aggregate doesn't need to be explicitly modeled in software, it can be implicit by what the aggregate root references.
 
+```csharp
+public class PurchaseOrder
+{
+    public PurchaseOrderId PurchaseOrderId { get; set; }
+
+    private List<LineItem> LineItems { get; set; }
+
+    private Money Total { get; set; }
+
+    public void AddLineItem(LineItem lineItem)
+    {
+        LineItems.Add(lineItem);
+        Total = Total + lineItem.Amount;
+
+        if(Total > 5000)
+        {
+            DomainEvents.
+        }
+    }
+}
+
+```
+
 #### Aggregate Root
 
 The aggregate root is the entity at the top of an aggregate, it directly references or indirectly references all the objects inside of an aggregate. It is the primary interface to an
