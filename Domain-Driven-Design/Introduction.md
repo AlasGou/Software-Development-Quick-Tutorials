@@ -65,7 +65,7 @@ as generic repositories but will reduce the amount of internal implementation.
 ```csharp
 public VaccineRepository : IVaccineRepository
 {
-    public DataAccessLayer<Vaccine> DataAccess {get; set;}
+    private DataAccessLayer<Vaccine> DataAccess {get; set;}
 
     public Vaccine StandardAdultFluDose()
     {
