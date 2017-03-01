@@ -12,13 +12,69 @@ point where they are otherwise the same. You can learn more about Onion Architec
 
 ## Ubiquitous Language
 
-When discussing the domain software developers, and domain experts should share a language 
-in order to understand each other. The software model should also be implemented
-using ubiquitous language as much as possible, to the point where the domain expert
-should be able to understand the code.
+One of the most important facets of Domain Driven Design is Ubiquitous Language. It allows domain experts and software developers to 
+understand each other, and is core to making sure the software model matches the reality of the domain. When discussing the domain 
+software developers, and domain experts should share a language in order to understand each other. Discussion and collaboration
+between software developers and domain experts is necessary to develop this language. It useful to document this
+language in a internal wiki anyone can reference. The software model should also be implemented using ubiquitous language as 
+much as possible to the point where the domain expertshould be able to understand the code.
 
-It is useful to document the language so anyone can lookup it up. Using 
-a internal wiki is often the best way of implementing this. 
+Imagine we are working on some software for administrating flu shots, we might imagine we could record a flu shot being given to patient using the following code.
+
+```csharp
+var shot = new Shot
+{
+    ShotType = ShotTypes.TypeFlu
+    Dosage = 15
+    Nurse = nurse
+    Patient = patient
+}
+ShotRepository.Add(shot)
+```
+
+Lets re-imagine this code taking into account ubiquitous language
+
+```csharp
+Vaccine vaccine = vaccines.StandardAdultFluDose();
+nurse.AdministerFluVaccine(patient, vaccine);
+```
+
+Notice how this is almost readable English, and much easier for the software developer and domain expert to work if this is matching the reality
+of the business domain.
+
+One thing that is important to highlight is that the `vaccines` object that the method `standardAdultFluDose` is called on is in fact a repository, 
+but it reads like English. This is important to highlight because a common pattern to use when implementing repositories are generic repositories. Usually
+with an interface such as:
+
+```csharp
+interface IRepository<T>
+{
+    Add(T)
+    Delete(T)
+    T Get(int id)
+}
+```
+
+These generic repositories are tempting since they can reduce the amount of repository code required but it does make it difficult to 
+use Ubiquitous Language. One way around this to have internal data access layer that all repository implementations can use, it won't be as concise
+as generic repositories but will reduce the amount of internal implementation. 
+
+```csharp
+public VaccineRepository : IVaccineRepository
+{
+    public DataAccessLayer<Vaccine> DataAccess {get; set;}
+
+    public Vaccine StandardAdultFluDose()
+    {
+        var standardVaccineId = //get vaccine id
+        return DataAccess.Get(standardVaccineId)
+    }
+}
+
+```
+Since repository implementations are not normally classed as being inside the domain layer, it doesn't matter that we are not using 
+Ubiquitous Language internally. External code operating on the domain layer won't see the internals of repositories, but they will see their interfaces!
+
 
 ## Value Object
 
