@@ -45,7 +45,7 @@ nurse.AdministerFluVaccine(patient, vaccine);
 Notice how this is almost readable English, and much easier for the software developer and domain expert to see if this is matching the reality
 of the business domain.
 
-One thing that is important to highlight is that the `vaccines` object that the method `standardAdultFluDose` is called on is in fact a repository, 
+One thing to highlight is that the `vaccines` object that the method `standardAdultFluDose` is called on is in fact a repository, 
 but it reads like English. This is important to highlight because a common pattern to use when implementing repositories are generic repositories. Usually
 with an interface such as:
 
