@@ -22,7 +22,7 @@ between software developers and domain experts is necessary to develop this lang
 language in a internal wiki anyone can reference. The software model should also be implemented using ubiquitous language as 
 much as possible to the point where the domain expert should be able to understand the code.
 
-Imagine we are working on some software for administrating flu shots, we might imagine we could record a flu shot being given to patient using the following code.
+Imagine we are working on some software for administrating flu shots. On our first attempt we may attempt you use the following code to record a flu shot:
 
 ```csharp
 var shot = new Shot
