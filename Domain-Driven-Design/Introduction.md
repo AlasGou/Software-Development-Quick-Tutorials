@@ -14,7 +14,9 @@ point where they are otherwise the same. You can learn more about Onion Architec
 
 One of the higher level principles of DDD is Ubiquitous Language, it is something that can improve your code even when you are 
 not using domain driven design. Although it is one the most underused parts of DDD with people preferring to dive straight into 
-DDD modeling techniques like aggregates and entities. Ubiquitous Language allows domain experts and software developers to understand each other, and is core to making sure the software model matches the reality of the domain.
+DDD modeling techniques like aggregates and entities. 
+
+Ubiquitous Language allows domain experts and software developers to understand each other, and is core to making sure the software model matches the reality of the domain.
 When discussing the domain software developers, and domain experts should share a language in order to understand each other. Discussion and collaboration
 between software developers and domain experts is necessary to develop this language. It useful to document this
 language in a internal wiki anyone can reference. The software model should also be implemented using ubiquitous language as 
