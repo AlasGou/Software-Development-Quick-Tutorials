@@ -2,8 +2,8 @@
 
 Domain Driven Design (DDD) is a technique for building software with complex business domains. The core idea is 
 to put the focus on building a shared software model that both software developers, and domain experts 
-can understand. The software model should be only concerned with modelling the business issues in the
-domain and include no technical issues like database persistance or handling requests.
+can understand. The software model should be only concerned with modeling the business issues in the
+domain and include no technical issues like database persistence or handling requests.
 
 When combined with Onion Architecture it can be a clean way of separating the business issues from the 
 technical issues. Onion Architecture is similar to both Ports & Adapters and Hexagonal Architecture to the 
@@ -55,7 +55,7 @@ purchase order can not exist without at least 1 line item, and that a purchase o
 A good check to see if some objects should be grouped together as an aggregate is that objects within that group change together when some business operation is 
 applied. For example if the value of a line item changes, and the purchase order entity can no longer be automatically approved. 
 
-An aggregate doesn't need to be explicitly modelled in software, it can be implicit by what the aggregate root references.
+An aggregate doesn't need to be explicitly modeled in software, it can be implicit by what the aggregate root references.
 
 ### Aggregate Root
 
