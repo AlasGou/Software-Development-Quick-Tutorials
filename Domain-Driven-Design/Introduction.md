@@ -82,7 +82,7 @@ Ubiquitous Language internally. External code operating on the domain layer won'
 
 ### Value Object
 
-A value object is an object that is defined by its attributes rather than having a unique identity. A money object would be a value object.
+A value object is an object that is defined by the value of its attributes rather than having a unique identity. A money object would be a value object.
 
 ```csharp
 public class Money
