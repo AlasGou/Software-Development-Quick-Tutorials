@@ -42,7 +42,7 @@ Vaccine vaccine = vaccines.StandardAdultFluDose();
 nurse.AdministerFluVaccine(patient, vaccine);
 ```
 
-Notice how this is almost readable English, and much easier for the software developer and domain expert to see if this is matching the reality
+Notice this is almost readable English, and much easier for the software developer and domain expert to see if this is matching the reality
 of the business domain.
 
 One thing to highlight is that the `vaccines` object that the method `standardAdultFluDose` is called on is a repository 
