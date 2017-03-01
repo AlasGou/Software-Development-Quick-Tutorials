@@ -20,6 +20,18 @@ should be able to understand the code.
 It is useful to document the language so anyone can lookup it up. Using 
 a internal wiki is often the best way of implementing this. 
 
+## Value Object
+
+A value object is an object that is defined by its attributes rather than having a unique identity. A money object would be a value object.
+
+```csharp
+public class Money
+{
+    public Decimal Value { get; set;}
+    public CurrencyType Currency  {get; set;}
+}
+```
+
 ## Entity
 
 An entity is an object that is unique and has an identity. A purchase order is an entity since it has a unique id.
@@ -30,19 +42,6 @@ public class PurchaseOrder
     public PurchaseOrderId PurchaseOrderId { get; set; }
 
     //Various properties and methods
-}
-```
-
-
-## Value Object
-
-A value object is an object that is defined by its attributes rather than having a unique identity. A money object would be a value object.
-
-```csharp
-public class Money
-{
-    public Decimal Value { get; set;}
-    public CurrencyType Currency  {get; set;}
 }
 ```
 
