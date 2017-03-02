@@ -132,7 +132,7 @@ public class PurchaseOrder
 
         if(Total > 5000)
         {
-            DomainEvents.
+            DomainEvents.Raise(new PurchaseOrderOverAutomaticApprovalLimit(PurchaseOrderId = PurchaseOrderId))
         }
     }
 }
