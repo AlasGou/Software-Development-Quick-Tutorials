@@ -35,7 +35,7 @@ var shot = new Shot
 ShotRepository.Add(shot)
 ```
 
-Lets re-imagine this code taking into account ubiquitous language
+Lets re-imagine this code using ubiquitous language
 
 ```csharp
 Vaccine vaccine = vaccines.StandardAdultFluDose();
