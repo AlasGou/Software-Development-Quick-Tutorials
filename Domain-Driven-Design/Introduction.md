@@ -46,7 +46,7 @@ Notice this is almost readable without being programming expert, and much easier
 see if this is matching the reality of the business domain.
 
 One thing to highlight is that the `vaccines` object that the method `standardAdultFluDose` is called on is a repository 
-but it reads like English. This is important to highlight because a common pattern to use when implementing repositories are generic repositories. Usually
+but it reads like English. This is important to highlight since a common pattern to use is generic repositories. Usually
 with an interface such as:
 
 ```csharp
