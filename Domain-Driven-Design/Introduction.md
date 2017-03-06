@@ -173,7 +173,7 @@ When using DDD in combination with microservices, the bounded context is a good 
 
 ## Tutorial
 
-You know may know the terms of domain driven design, but it maybe hard to visualise how to apply this to an actual project. For this reason we going to apply DDD to an example
+You know may know the terms of domain driven design, but it maybe hard to visualize how to apply this to an actual project. For this reason we going to apply DDD to an example
 project. Lets apply domain driven design to a domain that a developer could understand both the domain, and the implementation. We are going to use DDD to model
 the Scrum development framework. 
 
