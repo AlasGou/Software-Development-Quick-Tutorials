@@ -69,8 +69,7 @@ public VaccineRepository : IVaccineRepository
 
     public Vaccine StandardAdultFluDose()
     {
-        var standardVaccineId = //get vaccine id
-        return DataAccess.Get(standardVaccineId)
+        return DataAccess.FindBy(//some expression to find standard adult flu dose)
     }
 }
 
