@@ -240,6 +240,8 @@ it is ok to implement it inside the domain.
 
 ### Application Services
 
+Application services are the gateway to interacting with the domain model from external sources.
+
 ## DDD Anti-Patterns
 
 ## Tutorial
@@ -254,7 +256,7 @@ use DDD to model the Scrum development framework.
 
 Domain Driven Design is a complicated subject and I can only explain the basics
 of modelling with DDD within such a small article. For further information
-please see the following.
+please see the following:
 
 The canonical text book for DDD - [Domain-driven Design: Tackling Complexity in the Heart of Software(Blue Book)](https://www.amazon.com/exec/obidos/ASIN/0321125215/domainlanguag-20) by Eric Evans
 
