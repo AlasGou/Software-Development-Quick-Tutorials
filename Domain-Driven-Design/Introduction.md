@@ -139,29 +139,6 @@ order entity can no longer be automatically approved.
 An aggregate doesn't need to be explicitly modeled in software, it can be
 implicit by what the aggregate root references.
 
-```csharp
-public class PurchaseOrder
-{
-    public PurchaseOrderId PurchaseOrderId { get; set; }
-
-    private List<LineItem> LineItems { get; set; }
-
-    private Money Total { get; set; }
-
-    public void AddLineItem(LineItem lineItem)
-    {
-        LineItems.Add(lineItem);
-        Total = Total + lineItem.Amount;
-
-        if(Total > 5000)
-        {
-            DomainEvents.Raise(new PurchaseOrderOverAutomaticApprovalLimit(PurchaseOrderId = PurchaseOrderId))
-        }
-    }
-}
-
-```
-
 #### Aggregate Root
 
 The aggregate root is the entity at the top of an aggregate, it directly
@@ -170,6 +147,36 @@ primary interface to an aggregate, and all actions on a aggregate are performed
 via the aggregate root so that the invariants can be enforced. Any other objects
 outside of an aggregate are not allowed to directly reference any object
 inside the aggregate except for the aggregate root.
+
+```csharp
+public class PurchaseOrder
+{
+    public PurchaseOrderId PurchaseOrderId { get; set; }
+
+    private List<LineItem> LineItems { get; set; }
+
+    private Money Total {get; set;}
+
+    private bool Approved {get; set;}
+
+    public void Approve(Manager manager)
+    {
+        if(Approved)
+            return;
+
+        if(total <= manager.AmountAllowedToApprove())
+        {
+            Approved = true;
+            DomainEvents.Raise(new PurchaseOrderApproved(this, manager))
+        }
+        else
+        {
+            DomainEvents.Raise(new PurchaseOrderNotApproved(this, manager))
+        }
+    }
+}
+
+```
 
 ### Repository
 
@@ -200,9 +207,36 @@ may include other entities like suppliers.
 When using DDD in combination with microservices, the bounded context is a good
 way to specify the responsibilities of a service.
 
-### Context Map
-
 ### Domain Services
+
+A domain service is where domain related logic is placed, which doesn't naturally fit 
+inside a domain object. A domain service must be stateless, otherwise it could
+be modelled as a domain object like an entity. It should use ubiquitous language
+like the rest of the domain.
+
+Imagine we are writing some software in a financial domain. Our domain
+may require converting from various different currencies. To do this
+we could introduce a domain service to retrive the exchange rate. 
+
+```csharp
+public interface IExchangeRateService
+{
+    Decimal ExchangeRateBetween(Currency from, Currency to)
+}
+```
+
+The service should be part of the domain, since it is addressing
+business concern rather than a technical. It should still
+use ubiquitous language like the rest of the domain.
+
+Notice how this is just the interface for the service. 
+The implementation for this may have interact
+with a 3rd party api to get the current exchange rate,
+since this more of technical issue this could be implemented in 
+separate layer outside the domain. 
+
+If the domain service can be implemented entirely using domain concepts, 
+it is ok to implement it inside the domain.
 
 ### Application Services
 
