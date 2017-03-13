@@ -255,3 +255,11 @@ use DDD to model the Scrum development framework.
 Domain Driven Design is a complicated subject and I can only explain the basics
 of modelling with DDD within such a small article. For further information
 please see the following.
+
+The canonical text book for DDD - [Domain-driven Design: Tackling Complexity in the Heart of Software(Blue Book)](https://www.amazon.com/exec/obidos/ASIN/0321125215/domainlanguag-20) by Eric Evans
+
+A good book for learning how to practically implement DDD - [Implementing Domain-Driven Design(Red Book) ](https://www.amazon.co.uk/Implementing-Domain-Driven-Design-Vaughn-Vernon/dp/0321834577) by Vaughn Vernon
+
+A free chapter from Implementing Domain-Driven Design- [Implementing Domain-Driven Design: Aggregates ](https://www.infoq.com/minibooks/domain-driven-design-quickly)
+
+https://www.infoq.com/minibooks/domain-driven-design-quickly
