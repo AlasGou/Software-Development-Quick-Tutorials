@@ -196,6 +196,35 @@ notify a manager that a purchase order has been approved via email. It is good w
 linking up parts of the domain, and external systems without tightly coupling
 objects.
 
+```csharp
+public class PurchaseOrder
+{
+    public PurchaseOrderId PurchaseOrderId { get; set; }
+
+    private List<LineItem> LineItems { get; set; }
+
+    private Money Total {get; set;}
+
+    private bool Approved {get; set;}
+
+    public void Approve(Manager manager)
+    {
+        if(Approved)
+            return;
+
+        if(total <= manager.AmountAllowedToApprove())
+        {
+            Approved = true;
+            DomainEvents.Raise(new PurchaseOrderApproved(this, manager))
+        }
+        else
+        {
+            DomainEvents.Raise(new PurchaseOrderNotApproved(this, manager))
+        }
+    }
+}
+```
+
 ### Bounded Context
 
 A large project may have multiple domain models, and to stop the domain models
@@ -240,7 +269,8 @@ it is ok to implement it inside the domain.
 
 ### Application Services
 
-Application services are the gateway to interacting with the domain model from external sources.
+Application services are the gateway to interacting with the domain model from external sources
+outside the domain.
 
 ## DDD Anti-Patterns
 
