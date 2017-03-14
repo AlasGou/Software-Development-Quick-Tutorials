@@ -269,8 +269,15 @@ it is ok to implement it inside the domain.
 
 ### Application Services
 
-Application services are the gateway to interacting with the domain model from external sources
-outside the domain.
+Application services are the gateway to interacting with the domain model from 
+the outside world. The domain should not be directly exposed to the outside world
+since that can make it difficult to change the domain in the future. This
+is because outside services can become coupled to the domain, making it 
+difficult to change the domain without breaking the outside services relying 
+on it. Instead you should provide application services which provides an 
+api to interacting with the domain. This means the domain can change, but
+the api can remain the same without breaking the outside services. Business 
+rules are not allowed in an Application Service, those belong in the Domain layer.
 
 ## DDD Anti-Patterns
 
