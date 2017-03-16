@@ -152,9 +152,7 @@ like "retrive all unapproved purchase orders", but
 implementations are more concerned with the details of 
 retriving or persisting to a specific persistance technology
 like MSSQL. The implementations of repositories are
-placed within a Infrastructure layer or similar and injected
-in at runtime.
-
+placed in a separate layer, such as the Infrastructure layer and injected in at runtime.
 
 For example:
 
