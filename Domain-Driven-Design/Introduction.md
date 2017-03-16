@@ -269,15 +269,69 @@ it is ok to implement it inside the domain.
 
 ### Application Services
 
-Application services are the gateway to interacting with the domain model from 
-the outside world. The domain should not be directly exposed to the outside world
-since that can make it difficult to change the domain in the future. This
-is because outside services can become coupled to the domain, making it 
-difficult to change the domain without breaking the outside services relying 
-on it. Instead you should provide application services which provides an 
-api to interacting with the domain. This means the domain can change, but
-the api can remain the same without breaking the outside services. Business 
-rules are not allowed in an Application Service, those belong in the Domain layer.
+Application services are the gateway to interacting with the domain model.
+The domain should not be directly exposed to the outside world since 
+this can couple the domain with external code. This can make it
+hard to change the domain without breaking the external code
+depending on it. 
+
+Applications services provide an api for interacting with the 
+domain without directly interacting with the domain objects.
+This means the domain can change, but the api can remain the 
+same without breaking the outside services. No business logic 
+is allowed inside the application services, it must belong
+inside the domain.
+
+Imagine you are writing application services for a purchase order domain. We
+may end up with some code like this, if the command handler pattern is used
+
+```csharp
+public class PurchaseOrderCommandHandler : IHandleCommand<ApprovePurchaseOrderCommand>
+{
+    private IPurchaseOrderRepository PurchaseOrders {get; set;}
+
+    //Constructor
+
+    public void Handle(ApprovePurchaseOrderCommand command)
+    {
+        var purchaseOrder = PurchaseOrders.PurchaseOrderWithId(command.PurchaseOrderId)
+        purchaseOrder.Approve();
+    }
+
+    //Other command handlers
+}
+```
+
+Later on and the requirements change, and now the approval limits have to come
+from a 3rd party service. A domain service is used to model this inside the
+domain, and the approve method signature is modified the accept the 
+new domain service.
+
+Although the domain has changed, the command used to interact with domain 
+does not. 
+
+```csharp
+public class PurchaseOrderCommandHandler : IHandleCommand<ApprovePurchaseOrderCommand>
+{
+    private IPurchaseOrderRepository PurchaseOrders {get; set;}
+
+    private IApprovalLimitService ApprovalLimitService {get; set;}
+
+    //Constructor...
+
+    public void Handle(ApprovePurchaseOrderCommand command)
+    {
+        var purchaseOrder = PurchaseOrders.PurchaseOrderWithId(command.PurchaseOrderId)
+        purchaseOrder.Approve(ApprovalLimitService);
+    }
+
+    //Other command handlers
+}
+```
+
+This demonstrates how the use of application services can be used
+to allow the domain to be changed, without breaking the applications
+depending on the domain.
 
 ## DDD Anti-Patterns
 
