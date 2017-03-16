@@ -78,7 +78,7 @@ reduce the amount of internal implementation.
 ```csharp
 public VaccineRepository : IVaccineRepository
 {
-    private DataAccessLayer<Vaccine> DataAccess {get; set;}
+    private DataAccessLayer<Vaccine> DataAccess {get;}
 
     public Vaccine StandardAdultFluDose()
     {
@@ -288,7 +288,7 @@ may end up with some code like this, if the command handler pattern is used
 ```csharp
 public class PurchaseOrderCommandHandler : IHandleCommand<ApprovePurchaseOrderCommand>
 {
-    private IPurchaseOrderRepository PurchaseOrders {get; set;}
+    private IPurchaseOrderRepository PurchaseOrders {get;}
 
     //Constructor
 
@@ -313,9 +313,9 @@ does not.
 ```csharp
 public class PurchaseOrderCommandHandler : IHandleCommand<ApprovePurchaseOrderCommand>
 {
-    private IPurchaseOrderRepository PurchaseOrders {get; set;}
+    private IPurchaseOrderRepository PurchaseOrders {get;}
 
-    private IApprovalLimitService ApprovalLimitService {get; set;}
+    private IApprovalLimitService ApprovalLimitService {get;}
 
     //Constructor...
 
