@@ -8,7 +8,7 @@ domain and include no technical issues like database persistence or handling
 requests.
 
 When combined with Onion Architecture it can be a clean way of separating the
-business issues from the technical issues. Onion Architecture is similar to both
+business issues from the technical issues. Onion Architecture is similar to
 Ports & Adapters and Hexagonal Architecture to the point where they are
 otherwise the same. You can learn more about Onion Architecture at the following
 [article](../Onion-Architecture).
@@ -55,44 +55,6 @@ Notice this is almost readable without being programming expert, and much
 easier for the software developer and domain expert to see if this is matching the
 reality of the business domain.
 
-One thing to highlight is that the `vaccines` object that the method
-`standardAdultFluDose` is called on is a repository but it reads like English. This is
-important to highlight since a common pattern to use is generic repositories. Usually
-with an interface such as:
-
-```csharp
-interface IRepository<T>
-{
-    Add(T)
-    Delete(T)
-    T Get(int id)
-}
-```
-
-These generic repositories are tempting since they can reduce the amount of
-repository code required but it does make it difficult to use Ubiquitous Language.
-One way around this to have internal data access layer that all repository
-implementations can use, it won't be as concise as generic repositories but will
-reduce the amount of internal implementation.
-
-```csharp
-public VaccineRepository : IVaccineRepository
-{
-    private DataAccessLayer<Vaccine> DataAccess {get;}
-
-    public Vaccine StandardAdultFluDose()
-    {
-        return DataAccess.FindBy(//some expression to find standard adult flu dose)
-    }
-}
-
-```
-
-Since repository implementations are not normally classed as being inside the
-domain layer, it doesn't matter that we are not using Ubiquitous Language
-internally. External code operating on the domain layer won't see the internals of
-repositories, but they will see their interfaces!
-
 ## Domain Driven Design Modeling Techniques
 
 ### Value Object
@@ -125,7 +87,7 @@ public class PurchaseOrder
 ### Aggregate
 
 An aggregate are a collection of objects that should act as a single unit. A
-purchase order aggregate may include a Purchase Order Entity, Address, a person,
+purchase order aggregate  may include a Purchase Order Entity, Address, a person,
 and line items. The aggregates are where the *invariants*(a fancy term DDD
 proponents like to use) or business rules are enforced. For our purchase order
 example, we may say that a purchase order can not exist without at least 1 line item,
@@ -180,12 +142,122 @@ public class PurchaseOrder
 
 ### Repository
 
-A repository is the method of retrieving aggregate roots, it should not be used
-to retrieve any other type of object in DDD. The repository interfaces are
-normally considered a part of the domain because they can contain business issues
-such as "retrieve all unapproved purchase orders". The repository implementations
-are considered outside of the domain, and usually placed within a Infrastructure
-project and are injected in at runtime. This is an example dependency inversion.
+A repository is a method of retrieving aggregate roots for use
+by the application services. Do not retrieve any other object using 
+a repository when using DDD as this would bypass the 
+invarients enforced by the aggregate root. When modelling the domain the repository interfaces are 
+part of the domain, but the implementations are not.
+This is because the interfaces define business issues
+like "retrive all unapproved purchase orders", but 
+implementations are more concerned with the details of 
+retriving or persisting to a specific persistance technology
+like MSSQL. The implementations of repositories are
+placed within a Infrastructure layer or similar and injected
+in at runtime.
+
+
+For example:
+
+Create the repository interface in the domain
+
+```csharp
+namespace App.Domain.PurchaseOrders
+{
+    public class IPurchaseOrderRepository
+    {
+        PurchaseOrder PurchaseOrderWithId(PurchaseOrderId id)
+    }
+}
+```
+Create the repository implementation in the Infrastructure layer 
+
+```csharp
+namespace App.Infrastructure.Persistence.MSSQL
+{
+
+    public class PurchaseOrderRepository : IPurchaseOrderRepository
+    {
+        public PurchaseOrder PurchaseOrderWithId(PurchaseOrderId id)
+        {
+            var purchaseOrder == //map from MSSQL database
+            return purchaseOrder;
+        }
+    }
+}
+```
+In the future the requirements may change, and DocumentDb is now
+required instead of MSSQL. Change the persistance by creating new
+persistence implementations using DocumentDb in the Infrastructure
+layer.
+
+```csharp
+namespace App.Infrastructure.Persistence.DocumentDb
+{
+    public class PurchaseOrderRepository : IPurchaseOrderRepository
+    {
+        public PurchaseOrder PurchaseOrderWithId(PurchaseOrderId id)
+        {
+            var purchaseOrder == //map from document db
+            return purchaseOrder;
+        }
+    }
+}
+```
+Injecting the new documentdb implementations should now change the application
+to persist on DocumentDb without changing domain or any other code except
+for the Infrastructure layer.
+
+
+#### Ubiquitous Language and Repositories
+
+Since reposistory interfaces are part of the domain they should use ubiquitous language like any other
+object in the domain. The example code in `Ubiquitous Language` section showed the use
+ ubiquitous language on a repository:
+
+```csharp
+Vaccine vaccine = vaccines.StandardAdultFluDose();
+nurse.AdministerFluVaccine(patient, vaccine);
+```
+
+One thing to highlight is that the `vaccines` object that the method
+`standardAdultFluDose` is called on is a repository but it reads like English. This is
+important to highlight since a common pattern to use is generic repositories to expose CRUD 
+like schematics. Usually with an interface such as:
+
+```csharp
+interface IRepository<T>
+{
+    Create(T)
+    Delete(T)
+    Add(T)
+    Update(T)
+    T Get(int id)
+}
+```
+
+These generic repositories are tempting since they can reduce the amount of
+repository code required but it does make it difficult to use ubiquitous language to make the domain self explanatory.
+One way around this to have a internal data access layer that repository
+implementations can use to implement methods using ubiquitous language. It won't be as concise as generic repositories but
+will reduce the amount of internal implementation.
+
+```csharp
+public VaccineRepository : IVaccineRepository
+{
+    private DataAccessLayer<Vaccine> DataAccess {get;}
+
+    public Vaccine StandardAdultFluDose()
+    {
+        return DataAccess.FindBy(//some expression to find standard adult flu dose)
+    }
+}
+
+```
+
+Since repository implementations are not classed as being inside the
+domain layer, it does not matter that we are not using ubiquitous language
+internally. External code operating on the domain layer won't see the internals of
+repositories, but they will see their interfaces!
 
 ### Domain Events
 
@@ -243,12 +315,12 @@ inside a domain object. A domain service must be stateless, otherwise it could
 be modelled as a domain object like an entity. It should use ubiquitous language
 like the rest of the domain.
 
-Imagine we are writing some software in a financial domain. Our domain
-may require converting from various different currencies. To do this
+Imagine you are writing some software in a financial domain. Your domain
+may require converting from different currencies. To do this
 we could introduce a domain service to retrive the exchange rate. 
 
 ```csharp
-public interface IExchangeRateService
+public interface IRetriveExhangeRate
 {
     Decimal ExchangeRateBetween(Currency from, Currency to)
 }
@@ -269,8 +341,8 @@ it is ok to implement it inside the domain.
 
 ### Application Services
 
-Application services are the gateway to interacting with the domain model.
-The domain should not be directly exposed to the outside world since 
+Application services are the gateway to interacting with the domain,
+the domain should not be directly exposed to the outside world since 
 this can couple the domain with external code. This can make it
 hard to change the domain without breaking the external code
 depending on it. 
@@ -282,8 +354,9 @@ same without breaking the outside services. No business logic
 is allowed inside the application services, it must belong
 inside the domain.
 
-Imagine you are writing application services for a purchase order domain. We
-may end up with some code like this, if the command handler pattern is used
+Imagine you are writing the application services for a purchase order domain. You decide
+to use the Command Handler pattern to implement your application services, and you end
+up with the following code:
 
 ```csharp
 public class PurchaseOrderCommandHandler : IHandleCommand<ApprovePurchaseOrderCommand>
@@ -307,8 +380,8 @@ from a 3rd party service. A domain service is used to model this inside the
 domain, and the approve method signature is modified the accept the 
 new domain service.
 
-Although the domain has changed, the command used to interact with domain 
-does not. 
+Although the domain has changed, the `ApprovePurchaseOrderCommand` used to interact with
+the domain does not. 
 
 ```csharp
 public class PurchaseOrderCommandHandler : IHandleCommand<ApprovePurchaseOrderCommand>
@@ -330,10 +403,9 @@ public class PurchaseOrderCommandHandler : IHandleCommand<ApprovePurchaseOrderCo
 ```
 
 This demonstrates how the use of application services can be used
-to allow the domain to be changed, without breaking the applications
+to allow the domain to change, without breaking the applications
 interacting with the domain.
 
-## DDD Anti-Patterns
 
 ## Tutorial
 
