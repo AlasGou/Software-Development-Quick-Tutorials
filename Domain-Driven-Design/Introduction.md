@@ -331,7 +331,7 @@ public class PurchaseOrderCommandHandler : IHandleCommand<ApprovePurchaseOrderCo
 
 This demonstrates how the use of application services can be used
 to allow the domain to be changed, without breaking the applications
-depending on the domain.
+interacting with the domain.
 
 ## DDD Anti-Patterns
 
