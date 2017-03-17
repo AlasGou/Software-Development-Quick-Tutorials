@@ -10,13 +10,3 @@ I generally write software for large feature rich e-commerce sites, and these so
 * [Test driven development (TDD) & Behavior driven development (BDD)](TDD-BDD/Introduction.md)
 * [Domain-Driven-Design (DDD)](Domain-Driven-Design/Introduction.md)
 * [Onion Architecture](Onion Architecture/Introduction.md)
-* Microservices
-* [CQRS](CQRS/Introduction.md)
-* [Event Sourcing](Event Sourcing/Introduction.md)
-  
-## Build & Deployment
-
-## Software Development Methodologies
-
-## Infrastructure
- 
