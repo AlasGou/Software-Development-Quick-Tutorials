@@ -2,10 +2,10 @@
 
 Domain Driven Design (DDD) is a technique for building software with complex
 business domains. The core idea is to put the focus on building a shared software
-model that both software developers, and domain experts can understand. The
-software model should be only concerned with modeling the business issues in the
-domain and include no technical issues like database persistence or handling
-requests.
+model that both software developers, and domain experts can understand. This
+software model, called the *domain* should model the business problem, but
+include no technical issues like database persistence or talking to 
+web services. 
 
 When combined with Onion Architecture it can be a clean way of separating the
 business issues from the technical issues. Onion Architecture is similar to
@@ -17,18 +17,22 @@ otherwise the same. You can learn more about Onion Architecture at the following
 
 One of the higher level principles of DDD is Ubiquitous Language, it is
 something that can improve your code even when you are not using domain driven design.
-Although it is one the most underused parts of DDD with people preferring to
+Ubiquitous language is one the most underused parts of DDD with people preferring to
 dive straight into DDD modeling techniques like aggregates and entities.
 
 Ubiquitous Language allows domain experts and software developers to understand
 each other, and is core to making sure the software model matches the reality
-of the domain. When discussing the domain software developers, and domain experts
-should share a language in order to understand each other. Discussion and
-collaboration between software developers and domain experts is necessary to develop
-this language. It useful to document this language in a internal wiki anyone can
-reference. The software model should also be implemented using ubiquitous
-language as much as possible to the point where the domain expert should be able to
-understand the code.
+of the domain. When discussing the domain, software developers and domain experts
+should collaboratively develop a language for use when discussing
+the domain. This language should identify and explain standard business terms and 
+phrases related to the domain in a way that both parties can understand. It is 
+useful to document this language in a internal wiki that anyone can reference.
+
+Any specifications, user stories, acceptance criteria should use the
+standard terms and phrases identified in the ubiquitous language.
+When writing the software for the domain model, it should be
+implemented using ubiquitous language to the point where the domain expert 
+should be able to understand the code(within reason).
 
 Imagine we are working on some software for administrating flu shots. On our
 first attempt we may attempt to use the following code to record a flu shot:
@@ -208,7 +212,7 @@ for the Infrastructure layer.
 
 #### Ubiquitous Language and Repositories
 
-Since reposistory interfaces are part of the domain they should use ubiquitous language like any other
+Since repository interfaces are part of the domain they should use ubiquitous language like any other
 object in the domain. The example code in `Ubiquitous Language` section showed the use
  ubiquitous language on a repository:
 
