@@ -176,7 +176,6 @@ Create the repository implementation in the Infrastructure layer
 ```csharp
 namespace App.Infrastructure.Persistence.MSSQL
 {
-
     public class PurchaseOrderRepository : IPurchaseOrderRepository
     {
         public PurchaseOrder PurchaseOrderWithId(PurchaseOrderId id)
