@@ -7,6 +7,6 @@ I generally write software for large feature rich e-commerce sites, and these so
 * [Basics](Basics/Introduction.md)
   * SOLID
   * Inversion of Control
-* Test-driven development(TDD) & Behavior-driven development(BDD)
-* [Domain-Driven-Design(DDD)](Domain-Driven-Design/Introduction.md)
+* [Test driven development (TDD) & Behavior driven development (BDD)](TDD-BDD/Introduction.md)
+* [Domain-Driven-Design (DDD)](Domain-Driven-Design/Introduction.md)
 * [Onion Architecture](Onion Architecture/Introduction.md)
