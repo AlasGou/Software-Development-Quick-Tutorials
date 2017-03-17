@@ -90,29 +90,40 @@ public class PurchaseOrder
 
 ### Aggregate
 
-An aggregate are a collection of objects that should act as a single unit. A
-purchase order aggregate  may include a Purchase Order Entity, Address, a person,
-and line items. The aggregates are where the *invariants*(a fancy term DDD
-proponents like to use) or business rules are enforced. For our purchase order
-example, we may say that a purchase order can not exist without at least 1 line item,
-and that a purchase order over a certain amount can not be automatically approved.
+An aggregate is a collection of objects that should act as a single unit. For example a purchase order aggregate
+could contain a Purchase Order Entity, an Address value object, a person entity, and line item objects.
 
-A good check to see if some objects should be grouped together as an aggregate
-is that objects within that group change together when some business operation
-is applied. For example if the value of a line item changes, and the purchase
-order entity can no longer be automatically approved.
+Enforcing the *invariants*(a term DDD proponents like to use) otherwise known as business rules
+is the job of the aggregates. This is because aggregates are groups of objects that 
+should remain consistent with each other according to a set of business rules. 
 
-An aggregate doesn't need to be explicitly modeled in software, it can be
-implicit by what the aggregate root references.
+For the purchase order aggregate we may say that a purchase order can not exist without at least 1 line item,
+can not have more than 20 line items, only certain people can create purchase orders,
+and that a purchase order over a certain amount can not be automatically approved. 
+To enforce these rules the purchase order entity, person entity, and the line item value object 
+must work together.
+
+To check if objects should classed as an aggregate, work out what objects
+must work togother as a single unit to enforce the business rules for the application. 
+For example if the value of a line item changes, then the value of a purchase
+order may change which means it may no longer be able to be automatically approved.
+This means that these two objects are good candidates to grouped togother in 
+an aggregate.
+ 
 
 #### Aggregate Root
 
-The aggregate root is the entity at the top of an aggregate, it directly
-references or indirectly references all the objects inside of an aggregate. It is the
-primary interface to an aggregate, and all actions on a aggregate are performed
-via the aggregate root so that the invariants can be enforced. Any other objects
-outside of an aggregate are not allowed to directly reference any object
+The aggregate root is at the top of the hierarchy of an aggregate, it directly
+references or indirectly references all the objects inside of an aggregate.
+To perform an action on a aggregate, you must you use the aggregate root.
+This makes it the primary interface to an aggregate, and enforces
+all the invariants.
+
+To make sure the invariants enforced, any other objects outside of an aggregate are not allowed to directly reference any object
 inside the aggregate except for the aggregate root.
+
+For example to add approve behaviour for the purchase order aggregate, where managers have different approval
+limits we may end up with the following code:
 
 ```csharp
 public class PurchaseOrder
@@ -121,8 +132,6 @@ public class PurchaseOrder
 
     private List<LineItem> LineItems { get; set; }
 
-    private Money Total {get; set;}
-
     private bool Approved {get; set;}
 
     public void Approve(Manager manager)
@@ -130,7 +139,7 @@ public class PurchaseOrder
         if(Approved)
             return;
 
-        if(total <= manager.AmountAllowedToApprove())
+        if(TotalLineItemAmount() <= manager.AmountAllowedToApprove())
         {
             Approved = true;
             DomainEvents.Raise(new PurchaseOrderApproved(this, manager))
@@ -140,6 +149,8 @@ public class PurchaseOrder
             DomainEvents.Raise(new PurchaseOrderNotApproved(this, manager))
         }
     }
+
+    // Other methods
 }
 
 ```
