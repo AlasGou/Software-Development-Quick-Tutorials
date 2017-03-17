@@ -312,34 +312,42 @@ way to specify the responsibilities of a service.
 
 ### Domain Services
 
-A domain service is where domain related logic is placed, which doesn't naturally fit 
-inside a domain object. A domain service must be stateless, otherwise it could
-be modelled as a domain object like an entity. It should use ubiquitous language
-like the rest of the domain.
+When trying to model using DDD you may feel the need to model something inside the domain
+that doesn't feel like it naturally fits inside of a domain entity. It could be that the business
+logic spans multiple domain entites, and putting inside a single entity dilutes that entities focus, 
+or it could be the domain needs to retrive something from an external source to proccess some 
+business logic!
 
-Imagine you are writing some software in a financial domain. Your domain
-may require converting from different currencies. To do this
-we could introduce a domain service to retrive the exchange rate. 
+In general for something to be a domain service it needs to be:
+
+* Stateless
+* Its parameters and return types should be domain objects
+* Model business logic that don't naturally fit inside domain entities or value objects
+
+Since domain services are part of the domain, they should use ubiquitous language
+like anything else in the domain.
+
+Imagine you are writing some software in a financial domain. The domain
+may require converting from different currencies, but to get the exchange
+rate you need to interact with a 3rd party application. 
+
+To do this we could introduce a domain service to model this interaction:
 
 ```csharp
-public interface IRetriveExhangeRate
+public interface IRetriveExchangeRate
 {
-    Decimal ExchangeRateBetween(Currency from, Currency to)
+    ExchangeRate ExchangeRateBetween(Currency from, Currency to)
 }
 ```
 
-The service should be part of the domain, since it is addressing
-business concern rather than a technical. It should still
-use ubiquitous language like the rest of the domain.
+The domain service's interface should be part of the domain, since
+it's addressing a business problem. The implementation 
+for this will have to interact with a 3rd party over a REST API to get the
+current exchange rate. The details of interacting over REST is a technical issue,
+and so the implementation belongs in a infrastructure layer.
 
-Notice how this is just the interface for the service. 
-The implementation for this may have interact
-with a 3rd party api to get the current exchange rate,
-since this more of technical issue this could be implemented in 
-separate layer outside the domain. 
-
-If the domain service can be implemented entirely using domain concepts, 
-it is ok to implement it inside the domain.
+You can implement a domain service entirely inside the domain, if it uses
+purely domain concepts and requires no infrastructure issues.
 
 ### Application Services
 
