@@ -91,7 +91,7 @@ public class PurchaseOrder
 ### Aggregate
 
 An aggregate is a collection of objects that should act as a single unit. For example a purchase order aggregate
-could contain a Purchase Order Entity, an Address value object, a person entity, and line item objects.
+could contain a purchase Order Entity, an address value object, a person entity, and line item objects.
 
 Enforcing the *invariants*(a term DDD proponents like to use) otherwise known as business rules
 is the job of the aggregates. This is because aggregates are groups of objects that 
