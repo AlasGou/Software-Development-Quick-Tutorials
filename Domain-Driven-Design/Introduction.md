@@ -123,8 +123,8 @@ To make sure the invariants enforced, any other objects outside of an aggregate 
 inside the aggregate except for the aggregate root. If an object inside an aggregate was directly changed, it could skip some of the
 the business rules applied by the aggregate root.
 
-To create a purchase order aggregate root with a method for approval from different managers with different
-approval limits, we could end up with code that looks like this:
+To create a purchase order aggregate root with a method for approval from different managers each with different
+monetary approval limits, we could end up with code that looks like this:
 
 ```csharp
 public class PurchaseOrder
