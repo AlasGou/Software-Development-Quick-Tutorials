@@ -104,10 +104,10 @@ To enforce these rules the purchase order entity, person entity, and the line it
 must work together.
 
 To check if objects should classed as an aggregate, work out what objects
-must work togother as a single unit to enforce the business rules for the application. 
+must work together as a single unit to enforce the business rules for the application. 
 For example if the value of a line item changes, then the value of a purchase
 order may change which means it may no longer be able to be automatically approved.
-This means that these two objects are good candidates to grouped togother in 
+This means that these two objects are good candidates to grouped together as
 an aggregate.
  
 
@@ -120,10 +120,11 @@ This makes it the primary interface to an aggregate, and enforces
 all the invariants.
 
 To make sure the invariants enforced, any other objects outside of an aggregate are not allowed to directly reference any object
-inside the aggregate except for the aggregate root.
+inside the aggregate except for the aggregate root. If an object inside an aggregate was directly changed, it could skip some of the
+the business rules applied by the aggregate root.
 
-For example to add approve behaviour for the purchase order aggregate, where managers have different approval
-limits we may end up with the following code:
+To create a purchase order aggregate root with a method for approval from different managers with different
+approval limits, we could end up with code that looks like this:
 
 ```csharp
 public class PurchaseOrder
@@ -133,6 +134,8 @@ public class PurchaseOrder
     private List<LineItem> LineItems { get; set; }
 
     private bool Approved {get; set;}
+
+    //Other properties and methods
 
     public void Approve(Manager manager)
     {
@@ -149,8 +152,6 @@ public class PurchaseOrder
             DomainEvents.Raise(new PurchaseOrderNotApproved(this, manager))
         }
     }
-
-    // Other methods
 }
 
 ```
