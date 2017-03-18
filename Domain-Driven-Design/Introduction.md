@@ -315,7 +315,7 @@ When trying to model using DDD you may feel the need to model something inside t
 that doesn't feel like it naturally fits inside of a domain entity. It could be that the business
 logic spans multiple domain entites, and putting inside a single entity dilutes that entities focus, 
 or it could be the domain needs to retrive something from an external source to proccess some 
-business logic!
+business logic.
 
 In general for something to be a domain service it needs to be:
 
