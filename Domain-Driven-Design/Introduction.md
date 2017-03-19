@@ -100,7 +100,7 @@ should remain consistent with each other according to a set of business rules.
 For the purchase order aggregate we may say that a purchase order can not exist without at least 1 line item,
 can not have more than 20 line items, only certain people can create purchase orders,
 and that a purchase order over a certain amount can not be automatically approved. 
-To enforce these rules the purchase order entity, person entity, and the line item value objects(to calculate
+To enforce these rules, the purchase order entity, person entity, and the line item value objects(to calculate
 purchase order total) must work together.
 
 Group together domain objects as aggregates, if they need to work together to enforce
