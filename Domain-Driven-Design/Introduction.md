@@ -356,7 +356,7 @@ current exchange rate. The details of interacting over REST is a technical issue
 and so the implementation belongs in a infrastructure layer.
 
 You can implement a domain service entirely inside the domain, if it uses
-purely domain concepts and requires no infrastructure issues.
+purely domain concepts and requires no infrastructure concerns.
 
 ### Application Services
 
