@@ -90,29 +90,39 @@ public class PurchaseOrder
 
 ### Aggregate
 
-An aggregate are a collection of objects that should act as a single unit. A
-purchase order aggregate  may include a Purchase Order Entity, Address, a person,
-and line items. The aggregates are where the *invariants*(a fancy term DDD
-proponents like to use) or business rules are enforced. For our purchase order
-example, we may say that a purchase order can not exist without at least 1 line item,
-and that a purchase order over a certain amount can not be automatically approved.
+An aggregate is a collection of objects that should act as a single unit. For example a purchase order aggregate
+could contain a purchase order entity, an address value object, a person entity, and line item objects.
 
-A good check to see if some objects should be grouped together as an aggregate
-is that objects within that group change together when some business operation
-is applied. For example if the value of a line item changes, and the purchase
-order entity can no longer be automatically approved.
+Enforcing the *invariants*(a term DDD proponents like to use) otherwise known as business rules
+is the job of the aggregates. This is because aggregates are groups of objects that 
+should remain consistent with each other according to a set of business rules. 
 
-An aggregate doesn't need to be explicitly modeled in software, it can be
-implicit by what the aggregate root references.
+For the purchase order aggregate we may say that a purchase order can not exist without at least 1 line item,
+can not have more than 20 line items, only certain people can create purchase orders,
+and that a purchase order over a certain amount can not be automatically approved. 
+To enforce these rules, the purchase order entity, person entity, and the line item value objects(to calculate
+purchase order total) must work together.
 
+Group together domain objects as aggregates, if they need to work together to enforce
+the business rules of the application. For example if the value of a line item changes,
+then the value of a purchase order may change which means it may no longer be able
+to be automatically approved. This means that these two objects are good candidates 
+to grouped together as an aggregate.
+ 
 #### Aggregate Root
 
-The aggregate root is the entity at the top of an aggregate, it directly
-references or indirectly references all the objects inside of an aggregate. It is the
-primary interface to an aggregate, and all actions on a aggregate are performed
-via the aggregate root so that the invariants can be enforced. Any other objects
-outside of an aggregate are not allowed to directly reference any object
-inside the aggregate except for the aggregate root.
+The aggregate root is at the top of the hierarchy of an aggregate, it directly
+references or indirectly references all the objects inside of an aggregate.
+To perform an action on a aggregate, you must you use the aggregate root.
+This makes it the primary interface to an aggregate, and enforces
+all the invariants.
+
+Any object outside of the aggregate is not allow change any object inside of the aggregate except for calling for
+calling behavior on the aggregate root. If an object inside an aggregate was directly changed,
+it could skip some of the business rules applied by the aggregate root.
+
+To create a purchase order aggregate root with a method for approval from different managers each with different
+monetary approval limits, we could end up with code that looks like this:
 
 ```csharp
 public class PurchaseOrder
@@ -121,16 +131,16 @@ public class PurchaseOrder
 
     private List<LineItem> LineItems { get; set; }
 
-    private Money Total {get; set;}
-
     private bool Approved {get; set;}
+
+    //Other properties and methods
 
     public void Approve(Manager manager)
     {
         if(Approved)
             return;
 
-        if(total <= manager.AmountAllowedToApprove())
+        if(TotalLineItemAmount() <= manager.AmountAllowedToApprove())
         {
             Approved = true;
             DomainEvents.Raise(new PurchaseOrderApproved(this, manager))
@@ -311,34 +321,42 @@ way to specify the responsibilities of a service.
 
 ### Domain Services
 
-A domain service is where domain related logic is placed, which doesn't naturally fit 
-inside a domain object. A domain service must be stateless, otherwise it could
-be modelled as a domain object like an entity. It should use ubiquitous language
-like the rest of the domain.
+When trying to model using DDD you may feel the need to model something inside the domain
+that does not feel like it naturally fits inside of a domain entity. It could be that the business
+logic spans multiple domain entities, and putting inside a single entity dilutes that entities focus, 
+or it could be the domain needs to retrive something from an external source to process some 
+business logic.
 
-Imagine you are writing some software in a financial domain. Your domain
-may require converting from different currencies. To do this
-we could introduce a domain service to retrive the exchange rate. 
+In general for something to be a domain service it needs to be:
+
+* Stateless
+* Its parameters and return types should be domain objects
+* Model business logic that don't naturally fit inside domain entities or value objects
+
+Since domain services are part of the domain, they should use ubiquitous language
+like anything else in the domain.
+
+Imagine you are writing some software in a financial domain. The domain
+may require converting from different currencies, but to get the exchange
+rate you need to interact with a 3rd party application. 
+
+To do this we could introduce a domain service to model this interaction:
 
 ```csharp
-public interface IRetriveExhangeRate
+public interface IRetriveExchangeRate
 {
-    Decimal ExchangeRateBetween(Currency from, Currency to)
+    ExchangeRate ExchangeRateBetween(Currency from, Currency to)
 }
 ```
 
-The service should be part of the domain, since it is addressing
-business concern rather than a technical. It should still
-use ubiquitous language like the rest of the domain.
+The domain service's interface should be part of the domain, since
+it's addressing a business problem. The implementation 
+for this will have to interact with a 3rd party over a REST API to get the
+current exchange rate. The details of interacting over REST is a technical issue,
+and so the implementation belongs in a infrastructure layer.
 
-Notice how this is just the interface for the service. 
-The implementation for this may have interact
-with a 3rd party api to get the current exchange rate,
-since this more of technical issue this could be implemented in 
-separate layer outside the domain. 
-
-If the domain service can be implemented entirely using domain concepts, 
-it is ok to implement it inside the domain.
+You can implement a domain service entirely inside the domain, if it uses
+purely domain concepts and requires no infrastructure issues.
 
 ### Application Services
 
