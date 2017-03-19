@@ -170,7 +170,7 @@ placed in a separate layer, such as the Infrastructure layer and injected in at 
 
 For example:
 
-Create the repository interface in the domain
+Create the repository interface in the domain:
 
 ```csharp
 namespace App.Domain.PurchaseOrders
@@ -181,7 +181,7 @@ namespace App.Domain.PurchaseOrders
     }
 }
 ```
-Create the repository implementation in the Infrastructure layer 
+Create the repository implementation in the Infrastructure layer: 
 
 ```csharp
 namespace App.Infrastructure.Persistence.MSSQL
