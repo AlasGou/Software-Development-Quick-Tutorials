@@ -103,14 +103,12 @@ and that a purchase order over a certain amount can not be automatically approve
 To enforce these rules the purchase order entity, person entity, and the line item value object 
 must work together.
 
-To check if objects should classed as an aggregate, work out what objects
-must work together as a single unit to enforce the business rules for the application. 
-For example if the value of a line item changes, then the value of a purchase
-order may change which means it may no longer be able to be automatically approved.
-This means that these two objects are good candidates to grouped together as
-an aggregate.
+Group together domain objects as aggregates, if they need to work together to enforce
+the business rules of the application. For example if the value of a line item changes,
+then the value of a purchase order may change which means it may no longer be able
+to be automatically approved. This means that these two objects are good candidates 
+to grouped together as an aggregate.
  
-
 #### Aggregate Root
 
 The aggregate root is at the top of the hierarchy of an aggregate, it directly
