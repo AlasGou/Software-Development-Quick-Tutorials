@@ -117,7 +117,7 @@ To perform an action on a aggregate, you must you use the aggregate root.
 This makes it the primary interface to an aggregate, and enforces
 all the invariants.
 
-Any object outside of the aggregate is not allow change any object inside of the aggregate except for calling for
+Any object outside of the aggregate is not allowed change any object inside of the aggregate except for calling for
 calling behavior on the aggregate root. If an object inside an aggregate was directly changed,
 it could skip some of the business rules applied by the aggregate root.
 
