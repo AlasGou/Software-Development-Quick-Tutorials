@@ -222,7 +222,7 @@ for the Infrastructure layer.
 #### Ubiquitous Language and Repositories
 
 Since repository interfaces are part of the domain they should use ubiquitous language like any other
-object in the domain. The example code in `Ubiquitous Language` section showed the use
+object in the domain. The example code in the `Ubiquitous Language` section showed the use
  ubiquitous language on a repository:
 
 ```csharp
