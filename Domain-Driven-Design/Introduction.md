@@ -272,7 +272,7 @@ repositories, but they will see their interfaces!
 
 ### Domain Events
 
-A domain event is an event that tells the world that something has happened.
+A domain event is an event that tells the domain that something has happened.
 For example we publish a PurchaseOrderApproved event which other objects may
 listen for, for example an object listening for PurchaseOrderApproved event may
 notify a manager that a purchase order has been approved via email. It is good way of
