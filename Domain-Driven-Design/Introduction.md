@@ -263,6 +263,32 @@ repositories, but they will see their interfaces!
 
 ### Domain Events
 
+A domain event alerts the domain that something has happened, allowing
+other objects in the domain to react to the event. When discussing or specifying the
+domain with domain experts, you will often hear the word "When". This is a good 
+indicator that there is event to modeled explictly as a domain event.
+
+Domain events allow events handlers to listen for an event, then perform
+an action when that event has occured. This means to add extra functionality 
+for an event requires you to add an extra event handler. Conversly removing functionality
+would require you to remove an event handler. Each event handler listening to event
+would handle a specific functionality, allowing the code in each to concentrate
+on performing a specific action.
+
+If you did not use Domain Events this would require you modify the domain object
+where the event would normally occur if you was using domain events. This code
+would be cordinating the services required to perform certain actions. If the
+requirements change requiring extra actions on a event, this would require this method to become
+larger and to make on a wider range of responsbilities. Using domain events the method
+will stay the same, and responsbilities of performing the action will be with the event
+handlers.
+
+The quality of adding or removing actions without having modify existing code
+means that you code is loosly coupled, allowing your code to adapt to changes in requirements.
+
+
+#### Domain Event Example
+
 A domain event is an event that tells the world that something has happened.
 For example we publish a PurchaseOrderApproved event which other objects may
 listen for, for example an object listening for PurchaseOrderApproved event may
